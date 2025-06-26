@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>陈浩然的数字生命周期</title>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Unbounded', sans-serif;
+      background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+      color: white;
+      overflow-x: hidden;
+    }
+    .container {
+      padding: 60px 20px;
+      max-width: 800px;
+      margin: auto;
+      text-align: center;
+      animation: fadeIn 1s ease-out;
+    }
+    .title {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+    .subtitle {
+      font-size: 1.2rem;
+      color: #aaa;
+      margin-bottom: 40px;
+    }
+    .qr-section {
+      background: #111;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+    .qr-section img {
+      width: 160px;
+      height: 160px;
+      transition: transform 0.4s ease-in-out;
+    }
+    .qr-section img:hover {
+      transform: scale(1.05) rotate(1deg);
+    }
+    .actions {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 30px;
+    }
+    .action-btn {
+      background: #222;
+      border: 2px solid #444;
+      border-radius: 20px;
+      padding: 20px;
+      width: 40%;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .action-btn:hover {
+      border-color: #888;
+      background: #333;
+    }
+    .counter {
+      font-size: 1.1rem;
+      margin-top: 10px;
+      color: #ccc;
+    }
+    .emoji {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      font-size: 2rem;
+      animation: floatUp 1.5s ease-out forwards;
+      pointer-events: none;
+    }
+    @keyframes floatUp {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+      30% { opacity: 1; transform: translate(-50%, -80%) scale(1.2); }
+      100% { opacity: 0; transform: translate(-50%, -150%) scale(1); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .timeline {
+      margin-top: 60px;
+      font-size: 0.95rem;
+      text-align: left;
+      color: #bbb;
+      background: rgba(255,255,255,0.05);
+      border-left: 4px solid #555;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .timeline h3 {
+      font-size: 1.2rem;
+      color: white;
+      margin-bottom: 10px;
+    }
+    .timeline p {
+      line-height: 1.6;
+      margin: 10px 0;
+    }
+    .capsule {
+      margin-top: 40px;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">陈浩然的数字生命周期</div>
+    <div class="subtitle">从入职到数字坟场：扫码，铭记，评价</div>
+
+    <div class="qr-section">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://upload.wikimedia.org/wikipedia/commons/3/3c/Tombstone_icon.svg&size=160x160" alt="二维码">
+      <div class="actions">
+        <div class="action-btn" onclick="interact('flower')">
+          献上一朵花🌸
+          <div class="counter" id="flowerCount">0 次</div>
+        </div>
+        <div class="action-btn" onclick="interact('spit')">
+          吐口水💦
+          <div class="counter" id="spitCount">0 次</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <h3>数字年表</h3>
+      <p>🟢 入职：获得工牌二维码，绑定门禁/会议室/食堂</p>
+      <p>🟡 离职：二维码转为数字墓志铭，供前同事扫码评价</p>
+      <p>🔴 逝世：家属可启动“数字遗产”，查看年度自评、表情日志与时光胶囊</p>
+    </div>
+
+    <div class="capsule">
+      📦 数字自评胶囊：「2023年度总结：勤奋但被架空」<br>
+      ☁️ 留言墙：你可以记住他，也可以忘了他。
+    </div>
+  </div>
+
+  <script>
+    let flower = 0;
+    let spit = 0;
+
+    function interact(type) {
+      const countId = type === 'flower' ? 'flowerCount' : 'spitCount';
+      const counter = document.getElementById(countId);
+      const emoji = document.createElement('div');
+      emoji.className = 'emoji';
+      emoji.innerHTML = type === 'flower' ? '🌸' : '💦';
+      counter.parentElement.appendChild(emoji);
+
+      setTimeout(() => emoji.remove(), 1500);
+
+      if (type === 'flower') {
+        flower++;
+        counter.textContent = flower + ' 次';
+      } else {
+        spit++;
+        counter.textContent = spit + ' 次';
+      }
+    }
+  </script>
+</body>
+</html>
